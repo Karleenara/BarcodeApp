@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:path_provider/path_provider.dart';
+import 'onboard_screen.dart';
 
 class VideoScreen extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class VideoScreen extends StatefulWidget {
 }
 
 class _VideoScreenState extends State<VideoScreen> {
-  List<CameraDescription> cameras = [];
+  List<CameraDescription>? cameras = [];
   late CameraController controller;
   bool isRecording = false;
   late String videoPath;
@@ -21,8 +22,11 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   Future<void> initializeCamera() async {
-    final camera = cameras.first;
+    cameras = await availableCameras();
+    final camera = cameras!.first;
     controller = CameraController(camera, ResolutionPreset.high);
+    // final camera = cameras.first;
+    // controller = CameraController(camera, ResolutionPreset.high);
     await controller.initialize();
     if (!mounted) return;
     setState(() {});
@@ -30,7 +34,7 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   void dispose() {
-    controller?.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -86,6 +90,7 @@ class _VideoScreenState extends State<VideoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Video Recorder'),
+        backgroundColor: Color(0xFF3A3A3A),
       ),
       body: Column(
         children: [
@@ -101,8 +106,18 @@ class _VideoScreenState extends State<VideoScreen> {
             children: [
               IconButton(
                 icon: Icon(isRecording ? Icons.stop : Icons.fiber_manual_record),
-                color: isRecording ? Colors.red : Colors.white,
-                onPressed: isRecording ? stopRecording : startRecording,
+                color: isRecording ? Colors.red : Colors.black,
+                onPressed: () {
+                  if (isRecording) {
+                    stopRecording();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MenuPageWidget()),
+                    );
+                  } else {
+                    startRecording();
+                  }
+                },
               ),
             ],
           ),
