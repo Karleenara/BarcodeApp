@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_beep/flutter_beep.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
-import 'package:wakelock/wakelock.dart';
 import 'video_screen.dart';
 
 class BarcodeScreen extends StatefulWidget {
@@ -15,6 +14,8 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
   bool _canVibrate = true;
   bool _camState = false;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,7 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
     bool canVibrate = await Vibrate.canVibrate;
     setState(() {
       // 화면 꺼짐 방지
-      Wakelock.enable();
+      // Wakelock.enable();
 
       // QR 코드 스캔 관련
       _camState = true;
@@ -60,7 +61,7 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
       if (_qrInfo != null) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => VideoScreen()),
+          MaterialPageRoute(builder: (context) => VideoScreen(barcode: _qrInfo,)),
         );
       }
     });

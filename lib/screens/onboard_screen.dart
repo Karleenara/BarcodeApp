@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'barcode_screen.dart';
+import 'filePicker_screen.dart';
 
 class MenuPageWidget extends StatefulWidget {
   const MenuPageWidget({Key? key}) : super(key: key);
@@ -90,7 +91,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: Image.asset(
-                                      '/images/barcode.png',
+                                      'assets/images/barcode.png',
                                       width: 80,
                                       height: 80,
                                       fit: BoxFit.cover,
@@ -101,17 +102,30 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                             ),
                             Expanded(
                               child: Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: AlignmentDirectional(-1, 0),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.asset(
-                                      '/images/816x6_.png',
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
+                                      20, 10, 20, 0),
+                                  child: InkWell(     // 터지에 반응하는 효과를 줄 수 있는 위젯
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {   // 페이지 이동 (라우팅)
+                                      // context.pushNamed('camera'); XX
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => BulkUpload()),
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.asset(
+                                        'assets/images/816x6_.png',
+                                        width: 80,
+                                        height: 80,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -125,7 +139,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.asset(
-                                    '/images/checklist.png',
+                                    'assets/images/checklist.png',
                                     width: 80,
                                     height: 80,
                                     fit: BoxFit.cover,
@@ -148,7 +162,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.asset(
-                                '/images/video.png',
+                                'assets/images/video.png',
                                 width: 80,
                                 height: 80,
                                 fit: BoxFit.contain,
@@ -175,7 +189,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.asset(
-                                    '/images/cogwheel.png',
+                                    'assets/images/cogwheel.png',
                                     width: 80,
                                     height: 80,
                                     fit: BoxFit.cover,

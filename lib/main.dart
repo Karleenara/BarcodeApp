@@ -1,4 +1,4 @@
-import 'package:barcode_app/screens/barcode_screen.dart';
+import 'package:barcode_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // home: OnboardingWidget(),
-        home: BarcodeScreen(),
+        home: OnboardingWidget(),
+        // home: BulkUpload(),
     );
   }
 }

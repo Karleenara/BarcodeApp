@@ -66,7 +66,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.asset(
-                                        '/images/easily_capture_and_record.png',
+                                        'assets/images/easily_capture_and_record.png',
                                         width: 300,
                                         height: 200,
                                         fit: BoxFit.contain,
@@ -84,7 +84,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.asset(
-                                        '/images/You_can_record_videos_by_scanning_invoice_barcode_with_your_phone.png',
+                                        'assets/images/You_can_record_videos_by_scanning_invoice_barcode_with_your_phone.png',
                                         width: 300,
                                         height: 85,
                                         fit: BoxFit.contain,
