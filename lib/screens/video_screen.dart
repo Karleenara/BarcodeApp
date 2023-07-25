@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 import 'package:path_provider/path_provider.dart';
+import 'onboard_screen.dart';
 
 class VideoScreen extends StatefulWidget {
   late final String? barcode;
@@ -17,25 +17,23 @@ class _VideoScreenState extends State<VideoScreen> {
   CameraController? _controller;
   bool isRecording = false;
   late String videoPath;
-  DateTime? _preBarcodeTime;    // 이전 바코드 인식한 시간 저장
-  Timer? _barcodeTimer;     // 바코드 인식 후 종료를 체크하기 위한 타이머
-  String? _qrInfo;
 
   @override
   void initState() {
     super.initState();
     initializeCamera();
-    startRecording();
+    //startRecording();
   }
+
 
   Future<void> initializeCamera() async {
     cameras = await availableCameras();
     final camera = cameras!.first;
     _controller = CameraController(camera, ResolutionPreset.medium);
-    // final camera = cameras.first;
-    // controller = CameraController(camera, ResolutionPreset.high);
     await _controller!.initialize();
+    if (!mounted) return;
     setState(() {});
+    startRecording();
   }
 
   @override
@@ -47,23 +45,28 @@ class _VideoScreenState extends State<VideoScreen> {
 
 
   void startRecording() async {
-    if (isRecording) {
+    if (isRecording || _controller!.value.isRecordingVideo) {
       return;
+      }
+
+      final Directory appDirectory = await getTemporaryDirectory();
+      final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      videoPath = '${appDirectory.path}/$timestamp.mp4'; // 클래스 멤버인 videoPath에 할당
+
+      try {
+        await _controller!.startVideoRecording();
+        setState(() {
+          isRecording = true;
+        });
+      } catch (e) {
+        print(e);
+      }
+
+    Future.delayed(Duration(seconds: 3), () {
+      stopRecording();
+    });
     }
 
-    final Directory appDirectory = await getTemporaryDirectory();
-    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
-    final String videoPath = '/assets/video/$timestamp.mp4'; // 클래스 멤버인 videoPath에 할당
-
-    try {
-      await _controller!.startVideoRecording();
-      setState(() {
-        isRecording = true;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
 
   void stopRecording() async {
     if (!_controller!.value.isRecordingVideo) {
@@ -75,16 +78,16 @@ class _VideoScreenState extends State<VideoScreen> {
         isRecording = false;
       });
       print('Video recorded to: $videoPath');
-      if (widget.barcode == _qrInfo) {
-        _qrInfo = null;
-        widget.barcode = null;
 
-      }
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MenuPageWidget()),
+      );
+
     } catch (e) {
-      print(e);
+      print('Error stopRecoding: $e');
     }
   }
-
 
 
   @override
@@ -103,24 +106,9 @@ class _VideoScreenState extends State<VideoScreen> {
           Expanded(
             child: AspectRatio(
               aspectRatio: _controller!.value.aspectRatio,
-              child : Stack(
-                children: [
-                  CameraPreview(_controller!),
-                  Positioned.fill(
-                      child: QRBarScannerCamera(
-                        onError: (context, error) => Text(
-                          error.toString(),
-                          style: TextStyle(color: Colors.red),
-                        ), qrCodeCallback: (code) {
-                        setState(() {
-                          _qrInfo = code;
-                        });
-                      },
-                  ))
-                ],
-              ),
-            ),
+              child: CameraPreview(_controller!),
           ),
+        ),
           SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +116,14 @@ class _VideoScreenState extends State<VideoScreen> {
               IconButton(
                 icon: Icon(isRecording ? Icons.stop : Icons.fiber_manual_record),
                 color: isRecording ? Colors.red : Colors.black,
-                onPressed: isRecording ? stopRecording : startRecording,
+                onPressed: () {
+                  if (isRecording) {
+                    print(isRecording);
+                    stopRecording(); // 녹화 중이면 중지
+                  } else {
+                    startRecording(); // 녹화 중이 아니면 시작
+                  }
+                },
               ),
             ],
           ),

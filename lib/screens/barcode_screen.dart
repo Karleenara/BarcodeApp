@@ -14,13 +14,13 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
   bool _canVibrate = true;
   bool _camState = false;
 
-
-
   @override
   void initState() {
     super.initState();
+    // initializeCamera();
     _init();
   }
+
 
   /// 초기화 함수
   _init() async {
@@ -44,7 +44,6 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
   void dispose() {
     super.dispose();
   }
-
 
 
   /// QR/Bar Code 스캔 성공시 호출
