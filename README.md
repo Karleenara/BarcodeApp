@@ -9,21 +9,20 @@ A new Flutter project.
 
 ## 👩 메인페이지 UI
 Continue Button -> 메뉴 페이지  
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7930967c-342c-476d-b29d-8977c16fe425/Untitled.png){: width="100" height="100"}
+<img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7930967c-342c-476d-b29d-8977c16fe425/Untitled.png  width="200" height="400"/>
 
   </br>
 
 ## 👉 메뉴페이지 UI
 
- ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cb30d525-7ab7-4a57-8621-f644c7fbb5d7/Untitled.png){: width="100" height="100"}
+<img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7930967c-342c-476d-b29d-8977c16fe425/Untitled.png  width="200" height="400"/>
 
 </br>
 
 ## 💇‍♂️ 바코드 인식
 1) camera 프리뷰
 2) 바코드 인식 -> 택배 포장 영상 녹화 페이지로 이동
- ![image](https://github.com/Karleenara/BarcodeApp/assets/49609261/cc722b78-16cb-4592-b398-0a20b3ec560e){: width="100" height="100"}
+<img src="https://github.com/Karleenara/BarcodeApp/assets/49609261/cc722b78-16cb-4592-b398-0a20b3ec560e  width="200" height="400"/>
 
 </br>
  
