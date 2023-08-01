@@ -28,7 +28,7 @@ Continue Button -> 메뉴 페이지
  
 ## 🎞 포장 녹화
 
-<img src="https://github.com/Karleenara/BarcodeApp/assets/49609261/7e06ab70-ff90-4d9b-adef-d0cb54bf34c6"  width="200" height="400"/>
+<img src="https://github.com/Karleenara/BarcodeApp/assets/49609261/7e06ab70-ff90-4d9b-adef-d0cb54bf34c6"  width="300" height="400"/>
 
 </br>
 
